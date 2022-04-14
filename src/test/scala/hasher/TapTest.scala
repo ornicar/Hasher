@@ -5,10 +5,11 @@ import com.roundeights.hasher.{Algo, Hasher}
 
 import scala.io.{Codec, Source}
 import scala.language.postfixOps
+import org.specs2.specification.core.Fragment
 
 class TapTest extends Specification {
 
-    def hashTest ( algo: Algo, data: TestData, hash: String ) = {
+    def hashTest ( algo: Algo, data: TestData, hash: String ): Fragment = {
         "Using " + algo + ", the Tap.hash method" in {
             "Hash a Stream" in {
                 val tap = algo.tap( data.stream )
@@ -31,7 +32,7 @@ class TapTest extends Specification {
         }
     }
 
-    def compareTest ( algo: Algo, data: TestData, hash: String ) = {
+    def compareTest ( algo: Algo, data: TestData, hash: String ): Fragment = {
         "Using " + algo + ", the Tap.hash= method" in {
             "match a Stream" in {
                 val tap = algo.tap( data.stream )
@@ -56,7 +57,7 @@ class TapTest extends Specification {
 
     // BCrypt produces salted hashes, so we can only assert against the format
     // of the resulting hashes
-    def testBCrypt( data: TestData ) = {
+    def testBCrypt( data: TestData ): Fragment = {
         "Using BCrypt, the Tap.hash method" in {
             "Hash a Stream" in {
                 val tap = Algo.bcrypt.tap( data.stream )

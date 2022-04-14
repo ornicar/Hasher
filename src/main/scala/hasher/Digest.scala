@@ -71,7 +71,7 @@ trait Digest {
     def bytes: Array[Byte] = hash.bytes
 
     /** {@inheritDoc} */
-    override def toString = "Digest(%s, %s)".format( name, hash.hex )
+    override def toString: String = "Digest(%s, %s)".format( name, hash.hex )
 }
 
 /**

@@ -49,7 +49,7 @@ case class Hash ( val bytes: Array[Byte] ) extends Equals {
     override def hashCode: Int = hex.hashCode
 
     /** {@inheritDoc} */
-    override def equals ( other: Any ) = other match {
+    override def equals ( other: Any ): Boolean = other match {
         case str: String
             => equals( Hash(str) )
         case hash: Hash if hash.canEqual(this)
@@ -60,7 +60,7 @@ case class Hash ( val bytes: Array[Byte] ) extends Equals {
     }
 
     /** {@inheritDoc} */
-    override def canEqual ( other: Any ) = other.isInstanceOf[Hash]
+    override def canEqual ( other: Any ): Boolean = other.isInstanceOf[Hash]
 }
 
 

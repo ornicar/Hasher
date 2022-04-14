@@ -4,10 +4,11 @@ import org.specs2.mutable._
 import com.roundeights.hasher.{Algo, Hasher}
 
 import scala.language.postfixOps
+import org.specs2.specification.core.Fragment
 
 class AlgoTest extends Specification {
 
-    def hashTest ( algo: Algo, data: TestData, hash: String ) = {
+    def hashTest ( algo: Algo, data: TestData, hash: String ): Fragment = {
 
         "Using " + algo + ", the apply methods on the Algo object" in {
             "Hash a String" in {
@@ -38,7 +39,7 @@ class AlgoTest extends Specification {
 
     }
 
-    def compareTest ( algo: Algo, data: TestData, hash: String ) = {
+    def compareTest ( algo: Algo, data: TestData, hash: String ): Fragment = {
 
         "Using " + algo + ", the compare methods on the Algo object" in {
             "match with a String" in {
@@ -81,7 +82,7 @@ class AlgoTest extends Specification {
 
     // BCrypt produces salted hashes, so we can only assert against the format
     // of the resulting hashes
-    def testBCrypt( data: TestData ) = {
+    def testBCrypt( data: TestData ): Fragment = {
         "Using BCrypt, the apply methods on the Algo object" in {
             "Hash a String" in {
                 Algo.bcrypt()(data.str).hex must

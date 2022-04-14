@@ -4,16 +4,13 @@ organization := "com.roundeights"
 
 version := "1.2.2"
 
-scalaVersion := "2.13.8"
+scalaVersion := "3.1.1"
 
 // append -deprecation to the options passed to the Scala compiler
-scalacOptions ++= Seq("-deprecation", "-feature")
+scalacOptions ++= Seq("-deprecation", "-feature", "-language:postfixOps")
 
 // Repositories in which to find dependencies
 resolvers ++= Seq(
-  "Specs Repository" at "https://oss.sonatype.org/content/repositories/releases",
-  // need this for scalaz transitive dependency of specs2 2.4.+  under scala 2.10 & 2.11
-  "Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases",
   "jBCrypt Repository" at "https://repo1.maven.org/maven2/org/"
 )
 
@@ -54,5 +51,5 @@ pomExtra := (<url>https://github.com/Nycto/Hasher</url>
 // Application dependencies
 libraryDependencies ++= Seq(
   "org.mindrot" % "jbcrypt" % "0.4" % "optional",
-  "org.specs2" %% "specs2-core" % "4.6.0" % "test"
+  "org.specs2" %% "specs2-core" % "4.15.0" % "test"
 )

@@ -12,44 +12,44 @@ trait WithAlgo[A] {
     protected def withAlgo ( algo: Algo ): A
 
     /** MD5 hashing algorithm */
-    def md5 = withAlgo( new Algo( () => new MessageDigest("MD5") ) )
+    def md5: A = withAlgo( new Algo( () => new MessageDigest("MD5") ) )
 
     /** SHA1 hashing algorithm */
-    def sha1 = withAlgo( new Algo( () => new MessageDigest("SHA-1") ) )
+    def sha1: A = withAlgo( new Algo( () => new MessageDigest("SHA-1") ) )
 
     /** SHA256 hashing algorithm */
-    def sha256 = withAlgo( new Algo( () => new MessageDigest("SHA-256") ) )
+    def sha256: A = withAlgo( new Algo( () => new MessageDigest("SHA-256") ) )
 
     /** SHA384 hashing algorithm */
-    def sha384 = withAlgo( new Algo( () => new MessageDigest("SHA-384") ) )
+    def sha384: A = withAlgo( new Algo( () => new MessageDigest("SHA-384") ) )
 
     /** sha512 hashing algorithm */
-    def sha512 = withAlgo( new Algo( () => new MessageDigest("SHA-512") ) )
+    def sha512: A = withAlgo( new Algo( () => new MessageDigest("SHA-512") ) )
 
     /** CRC32 algorithm */
-    def crc32 = withAlgo( new Algo( () => new CRC32Digest ) )
+    def crc32: A = withAlgo( new Algo( () => new CRC32Digest ) )
 
     /** BCrypt hashing, using 10 rounds */
-    def bcrypt = withAlgo( new Algo( () => new BCryptDigest(10) ) )
+    def bcrypt: A = withAlgo( new Algo( () => new BCryptDigest(10) ) )
 
     /** BCrypt hashing, with a specific number of rounds */
-    def bcrypt( rounds: Int = 10 )
+    def bcrypt( rounds: Int = 10 ): A
         = withAlgo( new Algo( () => new BCryptDigest(rounds) ) )
 
     /** A fluent interface for generating HMACs */
     class HmacBuilder ( val key: Array[Byte] ) {
 
         /** HMAC-MD5 hashing algorithm */
-        def md5 = withAlgo( new Algo( () => new HMAC("HmacMD5", key) ) )
+        def md5: A = withAlgo( new Algo( () => new HMAC("HmacMD5", key) ) )
 
         /** HMAC-SHA1 hashing algorithm */
-        def sha1 = withAlgo( new Algo( () => new HMAC("HmacSHA1", key) ) )
+        def sha1: A = withAlgo( new Algo( () => new HMAC("HmacSHA1", key) ) )
 
         /** HMAC-SHA256 hashing algorithm */
-        def sha256 = withAlgo( new Algo( () => new HMAC("HmacSHA256", key) ) )
+        def sha256: A = withAlgo( new Algo( () => new HMAC("HmacSHA256", key) ) )
 
         /** HMAC-SHA512 hashing algorithm */
-        def sha512 = withAlgo( new Algo( () => new HMAC("HmacSHA512", key) ) )
+        def sha512: A = withAlgo( new Algo( () => new HMAC("HmacSHA512", key) ) )
     }
 
     /** Generates an hmac builder */
@@ -94,7 +94,7 @@ class Algo private[hasher] (
     def name: String = digest.name
 
     /** {@inheritDoc} */
-    override def toString = "Algo(%s)".format( name )
+    override def toString: String = "Algo(%s)".format( name )
 
     /** Generates a hash of a PlainText source */
     override def apply ( value: PlainText ): Digest = value.fill( digest )

@@ -14,7 +14,7 @@ import scala.io.{Codec, Source}
 object TestData {
 
     // Simple test data
-    val test = TestData(
+    val test: TestData = TestData(
         bytes = "test".getBytes("UTF8"),
         md5ed = "098f6bcd4621d373cade4e832627b4f6",
         sha1ed = "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
@@ -51,7 +51,7 @@ object TestData {
     )
 
     // Buffer busting test data
-    val large = TestData(
+    val large: TestData = TestData(
         bytes = Array.fill(20000)(65.byteValue),
         md5ed = "0af181fb57f1eefb62b74081bbddb155",
         sha1ed = "b9624c14586d4668cba0b2759229a49f1ea355b6",
@@ -88,7 +88,7 @@ object TestData {
     )
 
     // Multi-byte test data
-    val international = TestData(
+    val international: TestData = TestData(
         bytes = "Iñtërnâtiônàlizætiøn".getBytes("UTF8"),
         md5ed = "e5e628206e73b1ae69b37fc69762a1e1",
         sha1ed = "4b9c5d2fa4c83f7561787eb4e5f7f06a2cd47425",
@@ -125,7 +125,7 @@ object TestData {
     )
 
     // Empty data
-    val blank = TestData(
+    val blank: TestData = TestData(
         bytes = "".getBytes("UTF8"),
         md5ed = "d41d8cd98f00b204e9800998ecf8427e",
         sha1ed = "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -187,11 +187,11 @@ case class TestData (
     def builder: StringBuilder = new StringBuilder(str)
     def stream = new ByteArrayInputStream( bytes )
     def reader = new StringReader(str)
-    def source = Source.fromBytes( bytes )(Codec.UTF8)
+    def source: Source = Source.fromBytes( bytes )(Codec.UTF8)
 
     def length = str.length
 
-    def runAgainstUnsalted (run: (Algo, TestData, String) => Fragment) = {
+    def runAgainstUnsalted (run: (Algo, TestData, String) => Fragment): Option[Fragment] = {
         run( Algo.md5, this, md5ed )
         run( Algo.sha1, this, sha1ed )
         run( Algo.sha256, this, sha256ed )
@@ -205,7 +205,7 @@ case class TestData (
         pbkdf2ed.map( run(Algo.pbkdf2("secret", 1000, 128), this, _) )
     }
 
-    def runAgainstAll (run: (Algo, TestData, String) => Fragment) = {
+    def runAgainstAll (run: (Algo, TestData, String) => Fragment): Fragment = {
         runAgainstUnsalted( run )
         run( Algo.bcrypt, this, bcrypted )
         run( Algo.bcrypt(12), this, bcrypted12 )
