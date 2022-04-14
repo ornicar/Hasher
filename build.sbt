@@ -2,7 +2,7 @@ name := "Hasher"
 
 organization := "com.roundeights"
 
-version := "1.2.2"
+version := "1.3.0"
 
 scalaVersion := "3.1.1"
 
