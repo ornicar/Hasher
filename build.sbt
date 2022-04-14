@@ -16,14 +16,6 @@ resolvers ++= Seq(
 
 publishMavenStyle := true
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
-
 Test / publishArtifact := false
 
 pomIncludeRepository := { _ => false }
@@ -52,4 +44,8 @@ pomExtra := (<url>https://github.com/Nycto/Hasher</url>
 libraryDependencies ++= Seq(
   "org.mindrot" % "jbcrypt" % "0.4" % "optional",
   "org.specs2" %% "specs2-core" % "4.15.0" % "test"
+)
+
+publishTo := Option(
+  Resolver.file("file", new File(sys.props.getOrElse("publishTo", "")))
 )
